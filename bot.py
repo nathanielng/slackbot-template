@@ -4,6 +4,13 @@ import json
 import os
 import slackclient
 import time
+import urllib.request
+
+
+INSTANCE_ID = urllib.request.urlopen('http://169.254.169.254/latest/meta-data/instance-id').read().decode()
+AVAILABILITY_ZONE = urllib.request.urlopen('http://169.254.169.254/latest/meta-data/placement/availability-zone').read().decode()
+IDENTITY = json.loads(urllib.request.urlopen('http://169.254.169.254/latest/dynamic/instance-identity/document').read().decode())
+AWS_REGION = IDENTITY['region']
 
 
 class MySlackClass:

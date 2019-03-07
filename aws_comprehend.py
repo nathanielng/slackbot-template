@@ -3,6 +3,7 @@ import boto3
 import botocore
 import json
 import sys
+import urllib.request
 
 
 class LanguageEngine:
@@ -66,7 +67,9 @@ class LanguageEngineMedical:
             return txt.strip()
 
 
-AWS_REGION = 'ap-southeast-1'
+IDENTITY = json.loads(urllib.request.urlopen('http://169.254.169.254/latest/dynamic/instance-identity/document').read().decode())
+AWS_REGION = IDENTITY['region']
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
