@@ -1,6 +1,7 @@
 # Slackbot Template
 
 This is a template for a Slack Bot
+running with Amazon Web Services Comprehend
 
 
 ## 1. Setup
@@ -18,16 +19,21 @@ sudo yum install python36 python36-pip git
 git clone https://github.com/nathanielng/slackbot-template.git
 ```
 
-3. Create a virtual environment
+3. Create a virtual environment (optional)
 
 ```bash
 python3 -m pip install --user virtualenv
 virtualenv -p python3 slackbot-env
 source slackbon-env/bin/activate
+```
+
+4. Install Python Libraries
+
+```bash
 python3 -m pip install -r requirements.txt
 ```
 
-4. Add the bot token to `~/.bash_profile`
+5. Add the bot token to `~/.bash_profile`
 
 export SLACK_BOT_TOKEN="your Slack bot token here"
 
@@ -36,7 +42,7 @@ export SLACK_BOT_TOKEN="your Slack bot token here"
 
 ```bash
 screen -S slackbot
-python3 bot.py
+python3 bot.py --run
 ```
 
 Type Ctrl-A, Ctrl-D to exit the screen session.
