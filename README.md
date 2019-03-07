@@ -33,10 +33,24 @@ source slackbon-env/bin/activate
 python3 -m pip install -r requirements.txt
 ```
 
-5. Add the bot token to `~/.bash_profile`
+5. Add the bot token (you will need to create a Slack App)
+   and your AWS credentials (you will need to create an IAM
+   admin user in the AWS console)
 
+Add the bot token to `~/.bash_profile`:
+
+```bash
 export SLACK_BOT_TOKEN="your Slack bot token here"
+```
 
+Add the following lines to `~/.aws/config`:
+
+```
+[profile adminuser]
+aws_access_key_id = _my_access_key_here_
+aws_secret_access_key = _put_iam_user_secret_access_key_here_
+region = _put_the_aws_region_here_
+```
 
 ## 2. Running the Bot
 
