@@ -56,6 +56,7 @@ region = _put_the_aws_region_here_
 
 ```bash
 screen -S slackbot
+cd src/
 python3 bot.py --run
 ```
 
