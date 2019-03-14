@@ -6,6 +6,12 @@ import pandas as pd
 import time
 
 
+if 'BING_API_KEY' in os.environ:
+    BING_API_KEY = os.getenv('BING_API_KEY')
+else:
+    BING_API_KEY = None
+
+
 def geocode(df, address_col, zone_col='ZONE'):
     # for row in df[column_name].iteritems():
     for row in df.iterrows():
@@ -21,7 +27,11 @@ def geocode(df, address_col, zone_col='ZONE'):
             address = f'{address}, Singapore'
         print(f'{idx}: "{address}"', end='')
 
-        g = geocoder.osm(address)
+        if BING_API_KEY is None:
+            g = geocoder.osm(address)
+        else:
+            g = geocoder.bing(address, key=BING_API_KEY)
+
         try:
             lat, lon = g.latlng
             df.loc[idx, 'Lat'] = lat

@@ -33,14 +33,21 @@ source slackbon-env/bin/activate
 python3 -m pip install -r requirements.txt
 ```
 
-5. Add the bot token (you will need to create a Slack App)
+5. Add tokens:
+   Add a slack bot token (you will need to create a Slack App)
    and your AWS credentials (you will need to create an IAM
    admin user in the AWS console)
 
-Add the bot token to `~/.bash_profile`:
+   For geocoding using Bing Maps, a
+   [Bing API Key](https://docs.microsoft.com/en-us/bingmaps/getting-started/bing-maps-dev-center-help/getting-a-bing-maps-key)
+   is needed
+
+Add the Slack bot token and
+Bing API key to `~/.bash_profile`:
 
 ```bash
 export SLACK_BOT_TOKEN="your Slack bot token here"
+export BING_API_KEY="your Bing API key here"
 ```
 
 Add the following lines to `~/.aws/config`:
