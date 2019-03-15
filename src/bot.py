@@ -69,12 +69,14 @@ class MySlackClass:
                 print(f'User: {user_id}@{channel}, msg="{msg}"')
                 if LEM is not None:
                     txt = LEM.get_entities(msg)
-                    print(f'Text: {txt}')
+                    print('LEM.get_entities(msg):')
+                    print(f'"{txt}"')
                     self.send_message(channel, txt)
 
 
     def run(self, LEM=None, delay=1):
-        if self._slack_client.rtm_connect(with_team_state=False) is False:
+        connection_check = self._slack_client.rtm_connect(with_team_state=False)
+        if connection_check is False:
             print('Connection failed')
             quit()
 
