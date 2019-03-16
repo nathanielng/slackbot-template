@@ -26,6 +26,7 @@ class MySlackClass:
         else:
             self._token = token
         self._slack_client = slackclient.SlackClient(self._token)
+        self._bot_id = self.bot_userid()
 
 
     def api_call(self, *args, **kwargs):
@@ -34,6 +35,11 @@ class MySlackClass:
 
     def bot_userid(self):
         return self.api_call('auth.test')['user_id']
+
+
+    def contains_at_mention(self, text):
+        at_mention = f'<@{self._bot_id}>'
+        return at_mention in text
 
 
     def get_channels(self):
@@ -67,6 +73,10 @@ class MySlackClass:
                 msg = event['text']
                 channel = event['channel']
                 print(f'User: {user_id}@{channel}, msg="{msg}"')
+
+                if not self.contains_at_mention(msg):
+                    continue
+
                 if LEM is not None:
                     txt = LEM.get_entities(msg)
                     print('LEM.get_entities(msg):')
@@ -80,8 +90,7 @@ class MySlackClass:
             print('Connection failed')
             quit()
 
-        bot_id = self.bot_userid()
-        print(f'Bot (ID={bot_id}) is now running ', end='')
+        print(f'Bot (ID={self._bot_id}) is now running ', end='')
         print(f'on `slackclient` version {slackclient.version.__version__}')
         while True:
             events = self._slack_client.rtm_read()
