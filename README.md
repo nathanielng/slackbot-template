@@ -33,24 +33,36 @@ source slackbon-env/bin/activate
 python3 -m pip install -r requirements.txt
 ```
 
-5. Add tokens:
-   Add a slack bot token (you will need to create a Slack App)
-   and your AWS credentials (you will need to create an IAM
-   admin user in the AWS console)
+5. Create a Slack App
 
-   For geocoding using Bing Maps, a
-   [Bing API Key](https://docs.microsoft.com/en-us/bingmaps/getting-started/bing-maps-dev-center-help/getting-a-bing-maps-key)
-   is needed
+Go to the Slack dashboard for your app and
+
+- Install the App to a Slack channel
+- Under Event Subscriptions, look for the
+  "Subscribe to Workspace Events" section.
+  Add the Workspace Event: "message.channels"
+- Under the Bot Users section,
+  Create a bot user 
+- Get the bot token for your Slack App.
+  You will need it in the next section.
+
+6. Add tokens:
+
+For geocoding using Bing Maps, a
+[Bing API Key](https://docs.microsoft.com/en-us/bingmaps/getting-started/bing-maps-dev-center-help/getting-a-bing-maps-key)
+may be obtained.
 
 Add the Slack bot token and
-Bing API key to `~/.bash_profile`:
+Bing API key to `~/.bash_profile` as follows:
 
 ```bash
 export SLACK_BOT_TOKEN="your Slack bot token here"
 export BING_API_KEY="your Bing API key here"
 ```
 
-Add the following lines to `~/.aws/config`:
+7. In the Amazon AWS Console, create an IAM admin user.
+ 
+   Add the credentials for the IAM user to `~/.aws/config`:
 
 ```
 [profile adminuser]
@@ -76,3 +88,17 @@ To get back to the screen session, type
 ```bash
 screen -r slackbot
 ```
+
+## 3. Using the Bot
+
+To use the bot, @mention the bot with a message in
+any Slack channel where the bot has been added.
+
+For example, type:
+
+```
+@bot_user_name message_to_bot
+```
+
+where `@bot_user_name` should be replaced by the user name of the bot.
+
