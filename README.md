@@ -35,7 +35,8 @@ python3 -m pip install -r requirements.txt
 
 5. Create a Slack App
 
-Go to the Slack dashboard for your app and
+Go to the [Slack dashboard](https://api.slack.com/apps)
+for your app(s) and
 
 - Install the App to a Slack channel
 - Under Event Subscriptions, look for the
