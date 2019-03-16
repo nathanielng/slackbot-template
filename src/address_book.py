@@ -22,7 +22,7 @@ def geocode(df, address_col, zone_col='ZONE'):
             continue
 
         if data[zone_col] == 'JOHOR BAHRU':
-            address = f'{address}, Johor Bahru, Malaysia'
+            address = f'{address}, Malaysia'
         else:
             address = f'{address}, Singapore'
         print(f'{idx}: "{address}"', end='')
