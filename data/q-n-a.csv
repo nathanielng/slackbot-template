@@ -1,4 +1,4 @@
 "Question","Answer"
 "(how are you doing|how's it going)","I am fine, thank you"
-"(show|give)(me a nearby clinic)","Here is a nearby clinic: Thean Clinic Pte Ltd, Blk 38 Beo Crescent #01-32, Singapore 160038"
+"(show|give) (me a nearby clinic)","Here is a nearby clinic: Thean Clinic Pte Ltd, Blk 38 Beo Crescent #01-32, Singapore 160038"
 "(what's the weather like today|how's the weather today|show me the weather)","It's sunny, with a temperature of 30 °C, and we expect light showers in the afternoon. The PSI is 41"

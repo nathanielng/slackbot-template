@@ -22,7 +22,7 @@ class QnA_Engine:
                 answer = data['Answer']
                 break
             else:
-                answer = 'I do not understand that.'
+                answer = None
         return answer
 
 

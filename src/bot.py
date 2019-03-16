@@ -2,6 +2,7 @@ import argparse
 import aws_comprehend as ac
 import json
 import os
+import qa_engine as qa
 import slackclient
 import time
 import urllib.request
@@ -27,6 +28,7 @@ class MySlackClass:
             self._token = token
         self._slack_client = slackclient.SlackClient(self._token)
         self._bot_id = self.bot_userid()
+        self._bot_name = 'BrainBotX'
 
 
     def api_call(self, *args, **kwargs):
@@ -60,13 +62,13 @@ class MySlackClass:
             "chat.postMessage",
             channel=channel_id,
             text=message,
-            username='pythonbot',
+            username=f'{self._bot_name}',
             icon_emoji=':robot_face:'
         )
         return result
 
 
-    def parse_commands(self, events, LEM=None):
+    def parse_commands(self, events, LEM=None, QAE=None):
         for event in events:
             if event['type'] == 'message' and not 'subtype' in event:
                 user_id = event['user']
@@ -83,8 +85,13 @@ class MySlackClass:
                     print(f'"{txt}"')
                     self.send_message(channel, txt)
 
+                if QAE is not None:
+                    txt = QAE.respond_to_question(msg)
+                    if txt is not None:
+                        self.send_message(channel, txt)
 
-    def run(self, LEM=None, delay=1):
+
+    def run(self, LEM=None, QAE=None, delay=1):
         connection_check = self._slack_client.rtm_connect(with_team_state=False)
         if connection_check is False:
             print('Connection failed')
@@ -96,7 +103,7 @@ class MySlackClass:
             events = self._slack_client.rtm_read()
             print(events)
             if len(events) > 0:
-                self.parse_commands(events, LEM)
+                self.parse_commands(events, LEM, QAE)
             time.sleep(delay)
 
 
@@ -130,5 +137,6 @@ if __name__ == "__main__":
     elif args.run is True:
         # python3 bot.py --run
         LEM = ac.LanguageEngineMedical('us-west-2')
-        SC.run(LEM)
+        QAE = qa.QnA_Engine('../data/q-n-a.csv')
+        SC.run(LEM, QAE)
 
